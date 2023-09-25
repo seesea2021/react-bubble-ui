@@ -1,4 +1,12 @@
-import React, { useState, useLayoutEffect, useRef, Children } from 'react';
+import React, {
+  useState,
+  useLayoutEffect,
+  useRef,
+  Children,
+  forwardRef,
+  useImperativeHandle,
+} from 'react';
+
 import {
   Container,
   Scrollable,
@@ -47,7 +55,7 @@ export const defaultOptions = {
   gravitation: 0,
 };
 
-export function Bubble(props: Props) {
+export const Bubble = forwardRef((props: Props, ref) => {
   const [scrollTop, setScrollTop] = useState(0);
   const [scrollLeft, setScrollLeft] = useState(0);
   const scrollable = useRef<null | HTMLDivElement>(null);
@@ -58,6 +66,22 @@ export function Bubble(props: Props) {
       setScrollLeft(e.target.scrollLeft);
     }
   };
+
+  useImperativeHandle(ref, () => ({
+    scrollTo: (idx: number) => {
+      const element = document.getElementById(`react-bubble-ui-bubble-${idx}`);
+      if (element && scrollable.current) {
+        const scrollX = element.offsetLeft - scrollable.current.offsetWidth / 2;
+        const scrollY = element.offsetTop - scrollable.current.offsetHeight / 2;
+
+        scrollable.current.scrollTo({
+          left: scrollX,
+          top: scrollY,
+          behavior: 'smooth',
+        });
+      }
+    },
+  }));
 
   useLayoutEffect(() => {
     window.addEventListener('scroll', handleScroll);
@@ -278,6 +302,8 @@ export function Bubble(props: Props) {
     return out;
   };
 
+  let bubbleIdx = -1;
+
   return (
     <div
       className={props.className}
@@ -288,8 +314,8 @@ export function Bubble(props: Props) {
       }}
     >
       <Container>
-        {/* <p>{`scrollTop: ${scrollTop}`}</p>
-        <p>{`scrollLeft: ${scrollLeft}`}</p> */}
+        <p>{`scrollTop: ${scrollTop}`}</p>
+        <p>{`scrollLeft: ${scrollLeft}`}</p>
         <Scrollable ref={scrollable} onScroll={handleScroll}>
           <HorizontalSpacer
             style={{
@@ -323,9 +349,11 @@ export function Bubble(props: Props) {
                       translateY,
                       distance,
                     } = getBubbleSize(i, j);
+                    bubbleIdx++;
                     return (
                       <BubbleContainer
                         key={`${comp}-${j}`}
+                        id={`react-bubble-ui-bubble-${bubbleIdx}`}
                         style={{
                           width: options.size,
                           height: options.size,
@@ -381,4 +409,4 @@ export function Bubble(props: Props) {
       </Container>
     </div>
   );
-}
+});
