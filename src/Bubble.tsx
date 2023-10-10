@@ -86,7 +86,7 @@ export const Bubble = forwardRef((props: Props, ref) => {
   useLayoutEffect(() => {
     window.addEventListener('scroll', handleScroll);
     if (scrollable.current) {
-      window.scrollTo(
+      scrollable.current.scrollTo(
         (scrollable.current.scrollWidth - scrollable.current.clientWidth) / 2,
         (scrollable.current.scrollHeight - scrollable.current.clientHeight) / 2
       );
@@ -314,8 +314,6 @@ export const Bubble = forwardRef((props: Props, ref) => {
       }}
     >
       <Container>
-        <p>{`scrollTop: ${scrollTop}`}</p>
-        <p>{`scrollLeft: ${scrollLeft}`}</p>
         <Scrollable ref={scrollable} onScroll={handleScroll}>
           <HorizontalSpacer
             style={{
@@ -364,10 +362,10 @@ export const Bubble = forwardRef((props: Props, ref) => {
                       >
                         {options.provideProps
                           ? React.cloneElement(comp, {
-                              bubbleSize: bubbleSize * options.size,
-                              distanceToCenter: distance,
-                              maxSize: options.size,
-                              minSize: options.minSize,
+                              bubblesize: bubbleSize * options.size,
+                              distancetocenter: distance,
+                              maxsize: options.size,
+                              minsize: options.minSize,
                             })
                           : comp}
                       </BubbleContainer>

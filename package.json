@@ -1,5 +1,5 @@
 {
-  "version": "0.1.3",
+  "version": "0.1.5",
   "license": "MIT",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -33,7 +33,7 @@
     "singleQuote": true,
     "trailingComma": "es5"
   },
-  "name": "react-bubble-ui-v2",
+  "name": "@seesea2021/react-bubble-ui-v2",
   "author": "Joshua Frankle",
   "module": "dist/react-bubble-ui-v2.esm.js",
   "size-limit": [
@@ -63,5 +63,23 @@
   },
   "dependencies": {
     "styled-components": "^5.3.5"
-  }
+  },
+  "description": "A highly configurable Bubble UI React.js component, similar to the iconic Apple Watch app layout.",
+  "directories": {
+    "example": "example",
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/seesea2021/react-bubble-ui.git"
+  },
+  "keywords": [
+    "react",
+    "bubble",
+    "ui"
+  ],
+  "bugs": {
+    "url": "https://github.com/seesea2021/react-bubble-ui/issues"
+  },
+  "homepage": "https://github.com/seesea2021/react-bubble-ui#readme"
 }
